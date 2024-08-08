@@ -7,6 +7,7 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
+import { NavLink } from "react-router-dom";
 import img from "../../assets/react.svg";
 
 function NavbarSection() {
@@ -45,13 +46,18 @@ function NavbarSection() {
           <NavbarToggle />
         </div>
         <NavbarCollapse>
-          <NavbarLink href="#" active>
-            Home
+          <NavbarLink as={"div"}>
+            <NavLink to={"/"}>Home</NavLink>
           </NavbarLink>
-          <NavbarLink href="#">About</NavbarLink>
-          <NavbarLink href="#">Services</NavbarLink>
-          <NavbarLink href="#">Pricing</NavbarLink>
-          <NavbarLink href="#">Contact</NavbarLink>
+          <NavbarLink as={"div"}>
+            <NavLink to={"/services"}>Services</NavLink>
+          </NavbarLink>
+          <NavbarLink as={"div"}>
+            <NavLink to={"/login"}>Login</NavLink>
+          </NavbarLink>
+          <NavbarLink as={"div"}>
+            <NavLink to={"/register"}>Register</NavLink>
+          </NavbarLink>
         </NavbarCollapse>
       </Navbar>
     </Flowbite>

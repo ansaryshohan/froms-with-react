@@ -1,16 +1,5 @@
-import LoginFormRHF from "./components/form/LoginFormRHF";
-import RegisterFormRHF from "./components/form/RegisterFormRHF";
-import NavbarSection from "./components/navbar/NavbarSection";
-
 function App() {
-
-  return (
-    <div className="">
-      <NavbarSection/>
-      {/* <LoginFormRHF/> */}
-      <RegisterFormRHF/>
-    </div>
-  )
+  return <div className="">app comp</div>;
 }
 
-export default App
+export default App;
