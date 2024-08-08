@@ -1,4 +1,5 @@
 import LoginFormRHF from "./components/form/LoginFormRHF";
+import RegisterFormRHF from "./components/form/RegisterFormRHF";
 import NavbarSection from "./components/navbar/NavbarSection";
 
 function App() {
@@ -6,7 +7,8 @@ function App() {
   return (
     <div className="">
       <NavbarSection/>
-      <LoginFormRHF/>
+      {/* <LoginFormRHF/> */}
+      <RegisterFormRHF/>
     </div>
   )
 }
