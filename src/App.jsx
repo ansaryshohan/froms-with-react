@@ -1,8 +1,12 @@
+import LoginFormRHF from "./components/form/LoginFormRHF";
+import NavbarSection from "./components/navbar/NavbarSection";
+
 function App() {
 
   return (
-    <div className="text-4xl text-red-500 underline">
-      hello react hook form
+    <div className="">
+      <NavbarSection/>
+      <LoginFormRHF/>
     </div>
   )
 }
