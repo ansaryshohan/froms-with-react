@@ -1,8 +1,12 @@
 import { Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import Field from "./Field";
+import { useAuthContext } from "../../contexts/ContextHooks";
+import { useNavigate } from "react-router-dom";
 
 function LoginFormRHF() {
+  const {logInWithEmailPass}= useAuthContext();
+  const navigate= useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,17 +14,16 @@ function LoginFormRHF() {
     formState: { errors },
   } = useForm();
 
-  const handleFormSubmit = (formData) => {
-    const user = { email: "abc@email.com", password: "1234567" };
-    const found =
-      user.email === formData.email && user.password === formData.password;
-    if (!found) {
+  const handleFormSubmit =async (formData) => {
+    try {
+      await logInWithEmailPass(formData.email,formData.password);
+      navigate("/home")
+    } catch (error) {
+      console.error(error)
       setError("root.random", {
         message: "invalid credentials",
         type: "random",
       });
-    } else {
-      console.log("welcome" + formData.email);
     }
   };
 

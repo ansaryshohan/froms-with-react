@@ -17,6 +17,7 @@ function EditProduct() {
     isLoading,
     isError,
     isSuccess,
+    
     error,
   } = useQuery({ queryKey: ["products", id], queryFn: productDataFn });
 

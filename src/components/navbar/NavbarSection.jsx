@@ -7,10 +7,14 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import img from "../../assets/react.svg";
+import { useAuthContext } from "../../contexts/ContextHooks";
 
 function NavbarSection() {
+  const { user,setUser, logOut } = useAuthContext();
+  const navigate = useNavigate();
+
   const customTheme = {
     root: {
       base: "bg-red px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4",
@@ -32,6 +36,16 @@ function NavbarSection() {
     },
   };
 
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      setUser(null);
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Navbar fluid rounded className=" border-red-500 mb-10">
@@ -42,22 +56,26 @@ function NavbarSection() {
           </span>
         </NavbarBrand>
         <div className="flex md:order-2">
-          <Button>Get started</Button>
+          <Button onClick={handleLogOut}>LogOut</Button>
           <NavbarToggle />
         </div>
         <NavbarCollapse>
           <NavbarLink as={"div"}>
-            <NavLink to={"/"}>Home</NavLink>
+            <NavLink to={"/home"}>Home</NavLink>
           </NavbarLink>
           <NavbarLink as={"div"}>
             <NavLink to={"/services"}>Services</NavLink>
           </NavbarLink>
-          <NavbarLink as={"div"}>
-            <NavLink to={"/login"}>Login</NavLink>
-          </NavbarLink>
-          <NavbarLink as={"div"}>
-            <NavLink to={"/register"}>Register</NavLink>
-          </NavbarLink>
+          {!user?.uid && (
+            <>
+              <NavbarLink as={"div"}>
+                <NavLink to={"/login"}>Login</NavLink>
+              </NavbarLink>
+              <NavbarLink as={"div"}>
+                <NavLink to={"/register"}>Register</NavLink>
+              </NavbarLink>
+            </>
+          )}
         </NavbarCollapse>
       </Navbar>
     </Flowbite>

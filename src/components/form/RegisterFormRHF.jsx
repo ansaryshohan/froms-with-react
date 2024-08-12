@@ -1,8 +1,12 @@
 import { Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../../contexts/ContextHooks";
 import Field from "./Field";
+import { useNavigate } from "react-router-dom";
 
 function RegisterFormRHF() {
+  const { createUserWithEmailPass, updateUser } = useAuthContext();
+  const navigate= useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,7 +14,7 @@ function RegisterFormRHF() {
     setError,
   } = useForm();
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = async (formData) => {
     const passwordMatch = formData.password === formData.confirm;
     if (!passwordMatch) {
       setError("register.passwordMatch", {
@@ -18,6 +22,20 @@ function RegisterFormRHF() {
       });
     }
     console.log(formData);
+    // registration with email and password
+    try {
+      const userCredential = await createUserWithEmailPass(
+        formData.email,
+        formData.password
+      );
+      if (userCredential.user) {
+        await updateUser(formData.firstName +" "+ formData.lastName);
+        console.log(userCredential.user);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const validatePassword = (value) => {

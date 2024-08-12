@@ -5,6 +5,8 @@ import RegisterFormRHF from "../components/form/RegisterFormRHF";
 import Services from "../components/services/Services";
 import ProductDetails from "../components/services/ProductDetails";
 import EditProduct from "../components/services/EditProduct";
+import HomePage from "../components/HomePage/HomePage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +14,10 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <div className="w-full h-screen text-center pt-56">page not found</div>,
     children: [
+      {
+        path: "home",
+        element: <HomePage />,
+      },
       {
         path: "services",
         element: <Services />,
@@ -26,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "product/:id",
-        element: <ProductDetails/>,
+        element:<PrivateRoute> <ProductDetails/> </PrivateRoute>,
       },
       {
         path: "/product/edit/:id",
